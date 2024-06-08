@@ -15,7 +15,7 @@ const connection = new Connection(clusterApiUrl("devnet"));
 const pk1 = getPublicKeyFromEnv('S_KEY1');
 const pk2 = getPublicKeyFromEnv('S_KEY2');
 
-const sol = 0.12;
+const sol = 0.05;
 console.log(`Attempting to send ${sol} SOL from ${pk1} to ${pk2}...`);
 
 const transaction = new Transaction();
@@ -26,8 +26,8 @@ const sendSolInstruction = SystemProgram.transfer({
 });
 transaction.add(sendSolInstruction);
 
-const signature = await sendAndConfirmTransaction(connection, transaction, [keyp1]);
-console.log(`Transaction done, signature: ${signature}`);
+//const signature = await sendAndConfirmTransaction(connection, transaction, [keyp1]);
+//console.log(`Transaction done, signature: ${signature}`);
 
 // Get this address from https://spl.solana.com/memo
 // https://solana.com/developers/cookbook/transactions/add-memo
@@ -42,4 +42,4 @@ const addMemoInstruction = new TransactionInstruction({
 const memoRes = transaction.add(addMemoInstruction);
 // console.log(`📝 memo is ${memoText}...`, memoRes);
 const signature2 = await sendAndConfirmTransaction(connection, transaction, [keyp1]);
-console.log(`Transaction done, signature: ${signature2}`);
+console.log(`Transaction (sending SOL + adding Memo) done, signature: ${signature2}`);
